@@ -17,7 +17,9 @@
 	 	});
 
 	 	$scope.selectAnswer = function(qIndex, aIndex){
-	 		alert(qIndex + ' ' + aIndex);
+	 		// alert(qIndex + ' ' + aIndex);
+
+	 		
 	 	}
 
 
