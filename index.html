@@ -16,7 +16,7 @@
 				<div class="intro {{(activeQuestion > -1) ? 'inactive' : 'active'}}">
 					<h2>Welcome</h2>
 					<p>Click begin to test your knowledge of Saturn</p>
-					<p class="btn" ng-click="activeQuestion = 0">Begin</p>
+					<p class="btn" ng-click="activeQuestion = 1">Begin</p>
 				</div>
 				<div class="question 
 					{{ $index === activeQuestion ? 'active' : 'inactive'}}
@@ -24,8 +24,10 @@
 				" ng-repeat="q in myQuestions">
 					<p class="txt">{{q.question}}</p>
 					<p class="ans"
-                    ng-class="{ selected: isSelected($parent.$index, $index), 
+                    ng-class="{ image: Answer.image,
+                                selected: isSelected($parent.$index, $index), 
                                 correct: isCorrect($parent.$index, $index)}"
+                    ng-style="{'background-image':'url({{Answer.image}})'}"
 					ng-click="selectAnswer($parent.$index, $index)" 
 					ng-repeat="Answer in myQuestions[$index].answers">
 						{{Answer.text}}
