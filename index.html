@@ -11,12 +11,17 @@
 		<div id="myQuiz" ng-controller="QuizController">
 				<h1>Test Your Knowledge: <span>Saturn</span></h1>
 				<div class="progress">
-					<div class="{{($index === activeQuestion) ? 'on' : 'off'}}" ng-repeat="q in myQuestions"></div>
+					<div class="
+				    {{($index === activeQuestion) ? 'on' : 'off'}}
+				    {{(q.questionState === 'answered') ? 'answered' : 'unanswered'}} 
+				    {{(q.correctness === 'correct') ? 'correct' : 'incorrect'}}  
+				      
+					" ng-repeat="q in myQuestions"></div>
 				</div>
 				<div class="intro {{(activeQuestion > -1) ? 'inactive' : 'active'}}">
 					<h2>Welcome</h2>
 					<p>Click begin to test your knowledge of Saturn</p>
-					<p class="btn" ng-click="activeQuestion = 1">Begin</p>
+					<p class="btn" ng-click="activeQuestion = 0">Begin</p>
 				</div>
 				<div class="question 
 					{{ $index === activeQuestion ? 'active' : 'inactive'}}
@@ -34,19 +39,21 @@
 					</p>
 	
 					<div class="feedback">
-						<p>You are <strong>correct</strong></p>
-						<p>Opps! That is incorrect</p>
-						<p>Additional feedback</p>
-						<div>Continue</div>
+						<p ng-show="q.correctness === 'correct'">You are <strong>correct</strong></p>
+						<p ng-show="q.correctness === 'incorrect'">Opps! That is incorrect</p>
+						<p>{{q.feedback}}</p>
+						<div class="btn" ng-click="selectContinue()">Continue</div>
 					</div>
 				</div>
-				<div class="results">
+				<div class="results {{(totalQuestions === activeQuestion) ? 'active' : 'inactive'}}">
 					<h3>Results</h3>
-					<p>You scored X% by correctly answering X of the total X questions</p>
+					<p>You scored {{percentage}}% by correctly answering {{score}} of the total {{totalQuestions}} questions</p>
 					<p>Use the links below to challange your friends</p>
-					<div class="share">
+					<div class="share" ng-bind-html="createShareLinks(percentage)">
+<!--
 						<a href="#" class="btn email">Email</a>
 						<a href="#" class="btn twitter">Tweet</a>
+-->
 					</div>
 				</div>
 
